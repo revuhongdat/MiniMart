@@ -19,25 +19,25 @@ public class CategoriesManager {
         scanner = new Scanner(System.in);
     }
 
-    public ArrayList<Categories> getClassesList() {
+    public ArrayList<Categories> getCategoriesList() {
         return categoriesList;
     }
 
-    public void createClasses() {
-        System.out.print("Enter name of new class : ");
-        String nameNewClass = scanner.nextLine();
-        Categories newClass = new Categories(++INDEX, nameNewClass);
-        categoriesList.add(newClass);
+    public void createCategories() {
+        System.out.print("Enter name of new Categories : ");
+        String nameNewCategories = scanner.nextLine();
+        Categories newCategories = new Categories(++INDEX, nameNewCategories);
+        categoriesList.add(newCategories);
     }
-    public void loadClasses(ArrayList<String[]> arrayList) {
+    public void loadCategories(ArrayList<String[]> arrayList) {
         for (int i = 0; i < arrayList.size(); i++) {
             int id = Integer.parseInt(arrayList.get(i)[0]);
             if (INDEX < id) {
                 INDEX = id;
             }
             String name = arrayList.get(i)[1];
-            Categories newClass = new Categories(id, name);
-            categoriesList.add(newClass);
+            Categories newCategories = new Categories(id, name);
+            categoriesList.add(newCategories);
         }
     }
 
@@ -57,17 +57,17 @@ public class CategoriesManager {
         return null;
     }
 
-    public void editClasses() {
-        System.out.print("Enter the id of class you want edit :");
+    public void editCategories() {
+        System.out.print("Enter the id of categories you want edit :");
         int id = Integer.parseInt(scanner.nextLine());
         Categories c = findCategoriesById(id);
         if (c != null) {
-            System.out.println("Enter the new name of class :");
+            System.out.println("Enter the new name of categories :");
             String newName = scanner.nextLine();
             c.setName(newName);
-            System.out.println("Edit name successfully!");
+            System.out.println("Edit successfully!");
         } else {
-            System.out.println("Not found!!!");
+            System.err.println("Not found!");
         }
     }
 }

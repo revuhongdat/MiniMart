@@ -9,98 +9,104 @@ public class Menu {
         Scanner scanner = new Scanner(System.in);
         CategoriesManager categoriesManager = new CategoriesManager();
         ProductsManager productsManager = new ProductsManager();
-        ComparatorPrice comparatorPrice = new ComparatorPrice();
-        ComparatorQuantity comparatorQuantity = new ComparatorQuantity();
+        ComparatorPriceAscending comparatorPriceAscending = new ComparatorPriceAscending();
+        ComparatorPriceDescending comparatorPriceDescending = new ComparatorPriceDescending();
         FileManager fileManager = new FileManager();
-        categoriesManager.loadClasses(fileManager.importData("D:\\Module2_APJ\\HomeWork\\src\\dataClasses.txt"));
-        productsManager.loadProduct(fileManager.importData("D:\\Module2_APJ\\HomeWork\\src\\dataStudents.txt"), categoriesManager);
+        categoriesManager.loadCategories(fileManager.importData("D:\\Module2_APJ\\HomeWork\\src\\dataCategories.txt"));
+        productsManager.loadProduct(fileManager.importData("D:\\Module2_APJ\\HomeWork\\src\\dataProducts.txt"), categoriesManager);
         do {
             System.out.println("MENU:");
-            System.out.println("1. Menu Classes");
-            System.out.println("2. Menu Student");
+            System.out.println("1. Menu Manager");
+            System.out.println("2. Menu Customer");
             System.out.println("0. Exit");
             System.out.println("Enter your choice: ");
-            int choice = Integer.parseInt(scanner.nextLine());
+            int choice = ExceptionManager.exceptionPositiveInteger();
             switch (choice) {
                 case 1:
-                    menuClasses(categoriesManager, scanner);
+                    menuManager(categoriesManager, productsManager, scanner);
                     break;
                 case 2:
-                    menuStudent(productsManager, scanner, categoriesManager, comparatorQuantity, comparatorPrice);
+                    menuCustomer(productsManager, scanner, categoriesManager, comparatorPriceDescending, comparatorPriceAscending);
                     break;
                 case 0:
-                    fileManager.exportData(productsManager.getProductsArrayList(), categoriesManager.getClassesList());
+                    fileManager.exportData(productsManager.getProductsArrayList(), categoriesManager.getCategoriesList());
                     System.exit(0);
 
             }
         } while (true);
     }
 
-    private void menuClasses(CategoriesManager categoriesManager, Scanner scanner) {
+    private void menuManager(CategoriesManager categoriesManager, ProductsManager productsManager, Scanner scanner) {
         int choice;
         do {
-            System.out.println("Menu Classes:");
-            System.out.println("1. Create classes");
-            System.out.println("2. Edit classes");
-            System.out.println("3. Display classes");
+            System.out.println("Menu Manager:");
+            System.out.println("1. Create categories");
+            System.out.println("2. Edit categories");
+            System.out.println("3. Display categories");
+            System.out.println("4. Create products");
+            System.out.println("5. Edit products");
+            System.out.println("6. Delete products");
+            System.out.println("7. Display products");
             System.out.println("0. Back to menu");
             System.out.println("Enter your choice: ");
-            choice = Integer.parseInt(scanner.nextLine());
+            choice = ExceptionManager.exceptionPositiveInteger();
             switch (choice) {
                 case 1:
-                    categoriesManager.createClasses();
+                    categoriesManager.createCategories();
                     break;
                 case 2:
-                    categoriesManager.editClasses();
+                    categoriesManager.editCategories();
                     break;
                 case 3:
                     categoriesManager.displayCategories();
+                    break;
+                case 4:
+                    productsManager.addProducts(categoriesManager);
+                    break;
+                case 5:
+                    productsManager.editProducts(categoriesManager);
+                    break;
+                case 6:
+                    productsManager.deleteProducts();
+                    break;
+                case 7:
+                    productsManager.displayProducts();
                     break;
             }
 
         } while (choice != 0);
     }
 
-    private void menuStudent(ProductsManager productsManager,
-                             Scanner scanner, CategoriesManager categoriesManager,
-                             ComparatorQuantity comparatorQuantity, ComparatorPrice comparatorPrice) {
+    private void menuCustomer(ProductsManager productsManager,
+                              Scanner scanner, CategoriesManager categoriesManager,
+                              ComparatorPriceDescending comparatorPriceDescending, ComparatorPriceAscending comparatorPriceAscending) {
         int choice;
         do {
-            System.out.println("Menu Student");
-            System.out.println("1. Add Student");
-            System.out.println("2. Delete Student");
-            System.out.println("3. Edit Student");
-            System.out.println("4. Find Student by name");
-            System.out.println("5. Student sort by age");
-            System.out.println("6. Student sort by point");
-            System.out.println("7. Display student by ID");
-            System.out.println("8. Display all student");
+            System.out.println("Menu Customer");
+            System.out.println("1. Find products by approximate name");
+            System.out.println("2. Find products by price range");
+            System.out.println("3. Display products by categories");
+            System.out.println("4. Sort products by price in ascending order");
+            System.out.println("5. Sort products by price in descending order");
             System.out.println("0. Back to menu");
             System.out.println("Enter your choice:");
             choice = Integer.parseInt(scanner.nextLine());
             switch (choice) {
                 case 1:
-                    productsManager.addProducts(categoriesManager);
-                    break;
-                case 2:
-                    productsManager.deleteProducts();
-                    break;
-                case 3:
-                    productsManager.editProducts(categoriesManager);
-                    break;
-                case 4:
                     productsManager.findProductsByApproximateName();
                     break;
+                case 2:
+                    productsManager.findProductsByPriceRange();
+                    break;
+                case 3:
+                    productsManager.displayProductsByCategories(categoriesManager);
+                    break;
+                case 4:
+                    productsManager.sortByPriceAscending(comparatorPriceAscending);
+                    productsManager.displayProducts();
+                    break;
                 case 5:
-                    productsManager.sortByQuantity(comparatorQuantity);
-                    break;
-                case 6:
-                    productsManager.sortByPrice(comparatorPrice);
-                    break;
-                case 7:
-                    productsManager.displayProductsById();
-                    break;
-                case 8:
+                    productsManager.sortByPriceDescending(comparatorPriceDescending);
                     productsManager.displayProducts();
                     break;
             }

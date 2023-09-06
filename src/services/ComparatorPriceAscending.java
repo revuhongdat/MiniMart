@@ -1,7 +1,7 @@
 package services;
 import models.Products;
 import java.util.Comparator;
-public class ComparatorPrice implements Comparator<Products> {
+public class ComparatorPriceAscending implements Comparator<Products> {
 
     @Override
     public int compare(Products o1, Products o2) {

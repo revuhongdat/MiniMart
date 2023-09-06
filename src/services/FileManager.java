@@ -9,18 +9,18 @@ import java.util.ArrayList;
 public class FileManager {
     public void exportData(ArrayList<Products> productsList, ArrayList<Categories> categoriesList) {
         try {
-            File fileOutClasses = new File("D:\\Module2_APJ\\HomeWork\\src\\dataClasses.txt");
-            BufferedWriter brClasses = new BufferedWriter(new FileWriter(fileOutClasses));
+            File fileOutClasses = new File("D:\\MiniMart\\src\\dataCategories.txt");
+            BufferedWriter brCategories = new BufferedWriter(new FileWriter(fileOutClasses));
             for (Categories c : categoriesList) {
-                brClasses.write(c.getId() + "," + c.getName() + "\n");
+                brCategories.write(c.getId() + "," + c.getName() + "\n");
             }
-            brClasses.close();
-            File fileOutStudents = new File("D:\\Module2_APJ\\HomeWork\\src\\dataStudents.txt");
-            BufferedWriter brStudents = new BufferedWriter(new FileWriter(fileOutStudents));
-            for (Products s : productsList) {
-                brStudents.write(s.getId() + "," + s.getName() + "," + s.getQuantity() + "," + s.getDescription() + "," + s.getPrice() + "," + s.getCategories().getId() + "," + s.getCategories().getName() + "\n");
+            brCategories.close();
+            File fileOutStudents = new File("D:\\MiniMart\\src\\dataProducts.txt");
+            BufferedWriter brProducts = new BufferedWriter(new FileWriter(fileOutStudents));
+            for (Products p : productsList) {
+                brProducts.write(p.getId() + "," + p.getName() + "," + p.getQuantity() + "," + p.getDescription() + "," + p.getPrice() + "," + p.getCategories().getId() + "," + p.getCategories().getName() + "\n");
             }
-            brStudents.close();
+            brProducts.close();
         } catch (IOException e) {
             String message = e.getMessage();
             System.out.println(message);

@@ -20,17 +20,16 @@ public class ProductsManager {
     }
 
     public void addProducts(CategoriesManager categoriesManager) {
+        System.out.println("Enter the name of product:");
         String name = scanner.nextLine();
         int quantity = ExceptionManager.exceptionQuantity();
         String description = ExceptionManager.exceptionDescription();
         double price = ExceptionManager.exceptionPrice();
-        //-------------------------------
-        // hiển thị danh sách lớp => cho ng dùng nhập id
-        // lấy đối tượng id từ manager => thêm vào student
-        // nếu chưa có lớp thì thêm mục tạo lớp mới cho học sinh
-        if (categoriesManager.getClassesList().isEmpty()) {
-            System.out.println("List of Class is empty, you can create new class here!");
-            categoriesManager.createClasses();
+        // Hien thi danh sach Categories cho nguoi dung,
+        // neu danh sach trong thi tao mot categories moi cho Product do
+        if (categoriesManager.getCategoriesList().isEmpty()) {
+            System.err.println("List of categories is empty, you can create a new categories for this product here!");
+            categoriesManager.createCategories();
             Categories categories = categoriesManager.findCategoriesById(1);
             Products products = new Products(INDEX++, name, quantity, description, price, categories);
             productsArrayList.add(products);
@@ -38,9 +37,8 @@ public class ProductsManager {
             System.out.println("Choice categories: ");
             categoriesManager.displayCategories();
             System.out.println("Enter id categories your choice: ");
-            int idCategories = Integer.parseInt(scanner.nextLine());
+            int idCategories = ExceptionManager.exceptionPositiveInteger();
             Categories categories = categoriesManager.findCategoriesById(idCategories);
-            //-------------------------------
             Products products = new Products(++INDEX, name, quantity, description, price, categories);
             productsArrayList.add(products);
         }
@@ -69,7 +67,7 @@ public void loadProduct(ArrayList<String[]> arrayList, CategoriesManager categor
 
     public void displayProductsById(){
         System.out.println("Enter ID: ");
-        int id = Integer.parseInt(scanner.nextLine());
+        int id = ExceptionManager.exceptionPositiveInteger();
         for (Products products : productsArrayList) {
             if (products.getId() == id) {
                 System.out.println(products);
@@ -81,10 +79,10 @@ public void loadProduct(ArrayList<String[]> arrayList, CategoriesManager categor
     }
     public void deleteProducts(){
         System.out.println("Enter ID: ");
-        int id = Integer.parseInt(scanner.nextLine());
+        int id = ExceptionManager.exceptionPositiveInteger();
         Products products = findProductsById(id);
         if (products == null) {
-            System.out.println("Not found!");
+            System.err.println("Not found!");
         } else {
             productsArrayList.remove(products);
             System.out.println("Delete successfully!");
@@ -92,26 +90,23 @@ public void loadProduct(ArrayList<String[]> arrayList, CategoriesManager categor
     }
     public void editProducts(CategoriesManager categoriesManager){
         System.out.println("Enter ID: ");
-        int id = Integer.parseInt(scanner.nextLine());
+        int id = ExceptionManager.exceptionPositiveInteger();
         Products products = findProductsById(id);
         if (products == null) {
-            System.out.println("Not found!");
+            System.err.println("Not found!");
         } else {
             System.out.println("Enter new name of products : ");
             String name = scanner.nextLine();
-            System.out.println("Enter new quantity of products : ");
-            int quantity = Integer.parseInt(scanner.nextLine());
-            System.out.println("Enter new description of products : ");
-            String description = scanner.nextLine();
-            System.out.println("Enter new price point of products : ");
-            double price = Double.parseDouble(scanner.nextLine());
-            //-------------------------------
-            // hiển thị danh sách lớp => cho ng dùng nhập id
+            int quantity = ExceptionManager.exceptionQuantity();
+            String description = ExceptionManager.exceptionDescription();
+            double price = ExceptionManager.exceptionPrice();
+            // hiển thị danh sách categories và cho người dùng nhập id
             // lấy đối tượng id từ manager => thêm vào student
             System.out.println("Select new categories of products : ");
             categoriesManager.displayCategories();
             System.out.println("Enter id of new categories of products : ");
-            int idCategories = Integer.parseInt(scanner.nextLine());
+            int idCategories = ExceptionManager.exceptionPositiveInteger();
+            // categories tham chiếu đến một categories trong categoriesList có id = idCategories
             Categories categories = categoriesManager.findCategoriesById(idCategories);
             //-------------------------------
 
@@ -194,7 +189,11 @@ public void loadProduct(ArrayList<String[]> arrayList, CategoriesManager categor
         productsArrayList.sort(comparatorQuantity);
     }
 
-    public void sortByPrice(ComparatorPrice comparatorPrice) {
-        productsArrayList.sort(comparatorPrice);
+    public void sortByPriceAscending(ComparatorPriceAscending comparatorPriceAscending) {
+        productsArrayList.sort(comparatorPriceAscending);
+    }
+
+    public void sortByPriceDescending(ComparatorPriceDescending comparatorPriceDescending) {
+        productsArrayList.sort(comparatorPriceDescending);
     }
 }

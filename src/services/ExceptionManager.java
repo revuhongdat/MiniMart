@@ -6,46 +6,56 @@ public class ExceptionManager {
     private static final Scanner sc = new Scanner(System.in) ;
 
     public static int exceptionQuantity() {
-        int age = 0;
+        int quantity = -1;
         do {
-            System.out.println("Enter the age (18 - 120): ");
+            System.out.println("Enter the quantity of product:");
             try {
-                age = Integer.parseInt(sc.nextLine());
+                quantity = Integer.parseInt(sc.nextLine());
+                if (quantity <= 0) {
+                    quantity = -1;
+                    System.out.println("Quantity of the product must be greater than zero, please re-enter!!!");
+                }
             } catch (NumberFormatException e) {
                 System.err.println("Enter numbers only, please re-enter!!!");
             }
 
-            if (age < 18 || age > 120) {
-                age = 0;
-                System.err.println("The age is not valid, please re-enter!!!");
-            }
-        } while (age == 0);
-        return age;
+        } while (quantity == -1);
+        return quantity;
     }
     public static double exceptionPrice() {
-        double avg = -1.0;
+        double price = -1.0;
         do {
-            System.out.println("Enter the average point: ");
+            System.out.println("Enter the price of product: ");
             try {
-                avg = Double.parseDouble(sc.nextLine());
+                price = Double.parseDouble(sc.nextLine());
+                if (price <= 0) {
+                    price = -1;
+                    System.err.println("Price of the product must be greater than zero, please re-enter!!!");
+                }
             } catch (NumberFormatException e) {
                 System.err.println("Enter numbers only, please re-enter!!!");
             }
-            if (avg > 10 || avg < 0) {
-                avg = -1;
-                System.err.println("Average point is not valid, please re-enter!!!");
-            }
-        } while (avg == -1);
-        return avg;
+
+        } while (price == -1);
+        return price;
     }
     public static String exceptionDescription() {
-        String gender = "";
-            System.out.println("Enter the student gender (Male-Female): ");
+        String description;
+        do {
+            System.out.println("Enter a description for the product (character length from 1 - 30) :");
+            description = sc.nextLine();
+        } while (description.isEmpty() || description.length() > 30);
+        return description;
+    }
+    public static int exceptionPositiveInteger() {
+        int number = -1;
+        do {
             try {
-                gender = sc.nextLine();
+                number = Integer.parseInt(sc.nextLine());
             } catch (NumberFormatException e) {
-                System.err.println("Enter numbers only, please re-enter!!!");
+                System.err.println("Enter the wrong format, re-enter!!!");
             }
-        return gender;
+        } while (number == -1);
+        return number;
     }
 }
