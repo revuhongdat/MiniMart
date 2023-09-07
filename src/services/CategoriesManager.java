@@ -1,5 +1,6 @@
 package services;
 import models.Categories;
+import models.Products;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -69,5 +70,15 @@ public class CategoriesManager {
         } else {
             System.err.println("Not found!");
         }
+    }
+    private boolean IdIsExist(int id) {
+        boolean check = false;
+        for (Categories p : categoriesList) {
+            if (p.getId() == id) {
+                check = true;
+                break;
+            }
+        }
+        return check;
     }
 }

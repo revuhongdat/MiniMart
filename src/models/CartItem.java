@@ -2,19 +2,18 @@ package models;
 
 public class CartItem {
     private Products products;
-    private int quantity;
-    private double price;
+    private int buyQuantity;
 
-    public CartItem(Products products, int quantity) {
+    public CartItem(Products products, int buyQuantity) {
         this.products = products;
-        this.quantity = quantity;
+        this.buyQuantity = buyQuantity;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public int getBuyQuantity() {
+        return buyQuantity;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public void setBuyQuantity(int buyQuantity) {
+        this.buyQuantity = buyQuantity;
     }
 }

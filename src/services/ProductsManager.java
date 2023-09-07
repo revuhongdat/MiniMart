@@ -10,6 +10,7 @@ public class ProductsManager {
     private final ArrayList<Products> productsArrayList;
     private final Scanner scanner;
 
+
     public ProductsManager() {
         productsArrayList = new ArrayList<>();
         scanner = new Scanner(System.in);
@@ -25,8 +26,8 @@ public class ProductsManager {
         int quantity = ExceptionManager.exceptionQuantity();
         String description = ExceptionManager.exceptionDescription();
         double price = ExceptionManager.exceptionPrice();
-        // Hien thi danh sach Categories cho nguoi dung,
-        // neu danh sach trong thi tao mot categories moi cho Product do
+        // Check xem danh sách categories có trống ko, nếu trống thì tạo một categories cho product,
+        // nếu đã có categories thì hiển thị danh sách categories để cho người dùng chọn
         if (categoriesManager.getCategoriesList().isEmpty()) {
             System.err.println("List of categories is empty, you can create a new categories for this product here!");
             categoriesManager.createCategories();
@@ -100,16 +101,14 @@ public void loadProduct(ArrayList<String[]> arrayList, CategoriesManager categor
             int quantity = ExceptionManager.exceptionQuantity();
             String description = ExceptionManager.exceptionDescription();
             double price = ExceptionManager.exceptionPrice();
-            // hiển thị danh sách categories và cho người dùng nhập id
-            // lấy đối tượng id từ manager => thêm vào student
+            // Hiển thị danh sách categories và cho người dùng nhập id của categories muốn chọn
+            // Lấy categories có id tương ứng từ trong categoriesList => add vào student
             System.out.println("Select new categories of products : ");
             categoriesManager.displayCategories();
             System.out.println("Enter id of new categories of products : ");
             int idCategories = ExceptionManager.exceptionPositiveInteger();
             // categories tham chiếu đến một categories trong categoriesList có id = idCategories
             Categories categories = categoriesManager.findCategoriesById(idCategories);
-            //-------------------------------
-
             products.setName(name);
             products.setQuantity(quantity);
             products.setDescription(description);
@@ -119,7 +118,7 @@ public void loadProduct(ArrayList<String[]> arrayList, CategoriesManager categor
         }
     }
 
-    private Products findProductsById(int id) {
+    public Products findProductsById(int id) {
         for (Products products : productsArrayList) {
             if (products.getId() == id) {
                 return products;
@@ -195,5 +194,15 @@ public void loadProduct(ArrayList<String[]> arrayList, CategoriesManager categor
 
     public void sortByPriceDescending(ComparatorPriceDescending comparatorPriceDescending) {
         productsArrayList.sort(comparatorPriceDescending);
+    }
+    public boolean IdIsExist(int id) {
+        boolean check = false;
+        for (Products p : productsArrayList) {
+            if (p.getId() == id) {
+                check = true;
+                break;
+            }
+        }
+        return check;
     }
 }

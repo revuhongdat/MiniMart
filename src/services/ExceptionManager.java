@@ -1,5 +1,7 @@
 package services;
 
+import models.Products;
+
 import java.util.Scanner;
 
 public class ExceptionManager {
@@ -57,5 +59,17 @@ public class ExceptionManager {
             }
         } while (number == -1);
         return number;
+    }
+    public static int exceptionChoice() {
+        int choice = -1;
+        do {
+            try {
+                choice = Integer.parseInt(sc.nextLine());
+
+            } catch (NumberFormatException e) {
+                System.err.println("Enter the wrong format, re-enter!!!");
+            }
+        } while (choice == -1);
+        return choice;
     }
 }
