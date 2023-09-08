@@ -1,7 +1,5 @@
 package services;
 
-import models.Products;
-
 import java.util.Scanner;
 
 public class ExceptionManager {
@@ -54,6 +52,10 @@ public class ExceptionManager {
         do {
             try {
                 number = Integer.parseInt(sc.nextLine());
+                if (number <= 0) {
+                    number = -1;
+                    System.err.println("Id of the product must be greater than zero, please re-enter!!!");
+                }
             } catch (NumberFormatException e) {
                 System.err.println("Enter the wrong format, re-enter!!!");
             }
@@ -65,7 +67,10 @@ public class ExceptionManager {
         do {
             try {
                 choice = Integer.parseInt(sc.nextLine());
-
+                if (choice <= 0) {
+                    choice = -1;
+                    System.err.println("Choice must be greater than zero, please re-enter!!!");
+                }
             } catch (NumberFormatException e) {
                 System.err.println("Enter the wrong format, re-enter!!!");
             }

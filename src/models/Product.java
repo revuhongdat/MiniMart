@@ -1,20 +1,20 @@
 package models;
 
-public class Products {
+public class Product {
     private int id;
     private String name;
     private int quantity;
     private String description;
     private double price;
-    private Categories categories;
+    private Category category;
 
-    public Products(int id, String name, int quantity, String description, double price, Categories categories) {
+    public Product(int id, String name, int quantity, String description, double price, Category category) {
         this.id = id;
         this.name = name;
         this.quantity = quantity;
         this.description = description;
         this.price = price;
-        this.categories = categories;
+        this.category = category;
     }
 
     public int getId() {
@@ -57,17 +57,17 @@ public class Products {
         this.price = price;
     }
 
-    public Categories getCategories() {
-        return categories;
+    public Category getCategories() {
+        return category;
     }
 
-    public void setCategories(Categories categories) {
-        this.categories = categories;
+    public void setCategories(Category category) {
+        this.category = category;
     }
 
     @Override
     public String toString() {
         return "Products{" + "id=" + id + ", name=" + name + ", quantity=" + quantity +
-                ", description=" + description + ", price=" + price + ", categories=" + categories + '}';
+                ", description=" + description + ", price=" + price + ", categories=" + category + '}';
     }
 }

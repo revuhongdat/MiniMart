@@ -1,44 +1,62 @@
 package models;
-
-import services.ExceptionManager;
-import services.ProductsManager;
-
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
-
-public class Cart {
-    private final ArrayList<Products> itemList;
+import java.util.Date;
+public class Cart implements Serializable {
+    private static final long serialUID = 123456789;
+    private static int INDEX = 0;
+    private int id;
+    private final ArrayList<Item> listItem;
+    private double money;
+    private boolean status;
+    private Date date;
     private final Scanner scanner;
     public Cart() {
-        itemList = new ArrayList<>();
+        id = ++INDEX;
+        money = 0;
+        status = false;
+        listItem = new ArrayList<>();
+//        date = Calendar.getInstance().getTime();
+        date = null;
         scanner = new Scanner(System.in);
     }
-    public void displayCart() {
-        if (itemList.isEmpty()){
-            System.err.println("Cart is empty!!!");
-        } else {
-            for (Products p : itemList) {
-                System.out.println(p);
-            }
-        }
+    public static int getINDEX() {
+        return INDEX;
     }
-    public void addItems(ProductsManager productsManager) {
-        productsManager.displayProducts();
-        System.out.println("Enter the id of the product you want to add to the cart:");
-        int idBuy = ExceptionManager.exceptionPositiveInteger();
-        if (productsManager.IdIsExist(idBuy)) {
-            Products itemInMart = productsManager.findProductsById(idBuy);
+    private static void setINDEX(int INDEX) {
+        Cart.INDEX = INDEX;
+    }
+    public boolean isStatus() {
+        return status;
+    }
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+    public double getMoney() {
+        return money;
+    }
+    public void setMoney(double money) {
+        this.money = money;
+    }
+    public ArrayList<Item> getListItem() {
+        return listItem;
+    }
+    public Scanner getScanner() {
+        return scanner;
+    }
 
-//            ArrayList<Products> availableProductsList = productsManager.getProductsArrayList();
-            System.out.println("There are " +  itemInMart.getQuantity() + " products left in the store" +
-                    ". Enter the quantity of products you want to add to your cart:");
-            int quantityBuy = ExceptionManager.exceptionPositiveInteger();
-            Products itemBuy = new Products(idBuy,itemInMart.getName(),quantityBuy,itemInMart.getDescription(),itemInMart.getPrice(),itemInMart.getCategories());
-            itemList.add(itemBuy);
-        }
-    }
-    public void removeItems() {
-        System.out.println("remove item");
+    @Override
+    public String toString() {
+        return "Cart{" +
+                "id=" + id +
+                ", items=" + listItem +
+                '}';
     }
 }

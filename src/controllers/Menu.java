@@ -31,7 +31,7 @@ public class Menu {
                     menuCustomer(productsManager, cart, categoriesManager, comparatorPriceDescending, comparatorPriceAscending);
                     break;
                 case 0:
-                    fileManager.exportData(productsManager.getProductsArrayList(), categoriesManager.getCategoriesList());
+                    fileManager.exportData(productsManager.getProducts(), categoriesManager.getCategories());
                     System.exit(0);
 
             }
@@ -54,22 +54,22 @@ public class Menu {
             choice = ExceptionManager.exceptionChoice();
             switch (choice) {
                 case 1:
-                    categoriesManager.createCategories();
+                    categoriesManager.createCategory();
                     break;
                 case 2:
-                    categoriesManager.editCategories();
+                    categoriesManager.editCategory();
                     break;
                 case 3:
                     categoriesManager.displayCategories();
                     break;
                 case 4:
-                    productsManager.addProducts(categoriesManager);
+                    productsManager.addProduct(categoriesManager);
                     break;
                 case 5:
-                    productsManager.editProducts(categoriesManager);
+                    productsManager.editProduct(categoriesManager);
                     break;
                 case 6:
-                    productsManager.deleteProducts();
+                    productsManager.deleteProduct();
                     break;
                 case 7:
                     productsManager.displayProducts();
@@ -98,13 +98,13 @@ public class Menu {
             choice = ExceptionManager.exceptionChoice();
             switch (choice) {
                 case 1:
-                    productsManager.findProductsByApproximateName();
+                    productsManager.findProductByApproximateName();
                     break;
                 case 2:
-                    productsManager.findProductsByPriceRange();
+                    productsManager.findProductByPriceRange();
                     break;
                 case 3:
-                    productsManager.displayProductsByCategories(categoriesManager);
+                    productsManager.displayProductByCategories(categoriesManager);
                     break;
                 case 4:
                     productsManager.sortByPriceAscending(comparatorPriceAscending);

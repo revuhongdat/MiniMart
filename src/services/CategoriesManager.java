@@ -1,6 +1,5 @@
 package services;
-import models.Categories;
-import models.Products;
+import models.Category;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -8,27 +7,20 @@ import java.util.Scanner;
 
 public class CategoriesManager {
     private static int INDEX = 0;
-    private final ArrayList<Categories> categoriesList;
+    private final ArrayList<Category> categories;
     private final Scanner scanner;
-
-    public static void setINDEX(int INDEX) {
-        CategoriesManager.INDEX = INDEX;
-    }
-
     public CategoriesManager() {
-        categoriesList = new ArrayList<>();
+        categories = new ArrayList<>();
         scanner = new Scanner(System.in);
     }
-
-    public ArrayList<Categories> getCategoriesList() {
-        return categoriesList;
+    public ArrayList<Category> getCategories() {
+        return categories;
     }
-
-    public void createCategories() {
+    public void createCategory() {
         System.out.print("Enter name of new Categories : ");
         String nameNewCategories = scanner.nextLine();
-        Categories newCategories = new Categories(++INDEX, nameNewCategories);
-        categoriesList.add(newCategories);
+        Category newCategory = new Category(++INDEX, nameNewCategories);
+        categories.add(newCategory);
     }
     public void loadCategories(ArrayList<String[]> arrayList) {
         for (int i = 0; i < arrayList.size(); i++) {
@@ -37,20 +29,20 @@ public class CategoriesManager {
                 INDEX = id;
             }
             String name = arrayList.get(i)[1];
-            Categories newCategories = new Categories(id, name);
-            categoriesList.add(newCategories);
+            Category newCategory = new Category(id, name);
+            categories.add(newCategory);
         }
     }
 
 
     public void displayCategories() {
-        for (Categories c : categoriesList) {
+        for (Category c : categories) {
             System.out.println(c);
         }
     }
 
-    public Categories findCategoriesById(int id) {
-        for (Categories c : categoriesList) {
+    public Category findCategoryById(int id) {
+        for (Category c : categories) {
             if (c.getId() == id) {
                 return c;
             }
@@ -58,12 +50,12 @@ public class CategoriesManager {
         return null;
     }
 
-    public void editCategories() {
-        System.out.print("Enter the id of categories you want edit :");
+    public void editCategory() {
+        System.out.print("Enter the id of category you want edit :");
         int id = Integer.parseInt(scanner.nextLine());
-        Categories c = findCategoriesById(id);
+        Category c = findCategoryById(id);
         if (c != null) {
-            System.out.println("Enter the new name of categories :");
+            System.out.println("Enter the new name of category :");
             String newName = scanner.nextLine();
             c.setName(newName);
             System.out.println("Edit successfully!");
@@ -73,7 +65,7 @@ public class CategoriesManager {
     }
     private boolean IdIsExist(int id) {
         boolean check = false;
-        for (Categories p : categoriesList) {
+        for (Category p : categories) {
             if (p.getId() == id) {
                 check = true;
                 break;

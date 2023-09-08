@@ -1,23 +1,24 @@
 package services;
 
-import models.Categories;
-import models.Products;
+import models.Cart;
+import models.Category;
+import models.Product;
 
 import java.io.*;
 import java.util.ArrayList;
 
 public class FileManager {
-    public void exportData(ArrayList<Products> productsList, ArrayList<Categories> categoriesList) {
+    public void exportData(ArrayList<Product> productList, ArrayList<Category> categoryList) {
         try {
             File fileOutClasses = new File("D:\\MiniMart\\src\\dataCategories.txt");
             BufferedWriter brCategories = new BufferedWriter(new FileWriter(fileOutClasses));
-            for (Categories c : categoriesList) {
+            for (Category c : categoryList) {
                 brCategories.write(c.getId() + "," + c.getName() + "\n");
             }
             brCategories.close();
             File fileOutStudents = new File("D:\\MiniMart\\src\\dataProducts.txt");
             BufferedWriter brProducts = new BufferedWriter(new FileWriter(fileOutStudents));
-            for (Products p : productsList) {
+            for (Product p : productList) {
                 brProducts.write(p.getId() + "," + p.getName() + "," + p.getQuantity() + "," + p.getDescription() + "," + p.getPrice() + "," + p.getCategories().getId() + "," + p.getCategories().getName() + "\n");
             }
             brProducts.close();
