@@ -2,8 +2,7 @@ package models;
 
 import java.io.Serializable;
 
-public class Item implements Serializable {
-    private static final long serialUID = 123456789;
+public class Item {
     public static int INDEX = 0;
     private int id;
     private Product product;
@@ -11,6 +10,12 @@ public class Item implements Serializable {
 
     public Item(Product product, int buyQuantity) {
         this.id = ++INDEX;
+        this.product = product;
+        this.buyQuantity = buyQuantity;
+    }
+
+    public Item(int id, Product product, int buyQuantity) {
+        this.id = id;
         this.product = product;
         this.buyQuantity = buyQuantity;
     }
@@ -49,10 +54,8 @@ public class Item implements Serializable {
 
     @Override
     public String toString() {
-        return "Item{" +
-                "id=" + id +
-                ", product=" + product.getName() +
-                ", buyQuantity=" + buyQuantity +
-                '}';
+        return "Sản phẩm = " + product.getName() +
+                ", Số lượng = " + buyQuantity + "\n";
     }
+
 }

@@ -1,20 +1,27 @@
 package models;
 
 public class Product {
+    private static int INDEX = 1;
     private int id;
     private String name;
     private int quantity;
-    private String description;
     private double price;
     private Category category;
 
-    public Product(int id, String name, int quantity, String description, double price, Category category) {
-        this.id = id;
+    public Product(String name, int quantity, double price, Category category) {
+        this.id = INDEX++;
         this.name = name;
         this.quantity = quantity;
-        this.description = description;
         this.price = price;
         this.category = category;
+    }
+
+    public static int getINDEX() {
+        return INDEX;
+    }
+
+    public static void setINDEX(int INDEX) {
+        Product.INDEX = INDEX;
     }
 
     public int getId() {
@@ -41,14 +48,6 @@ public class Product {
         this.quantity = quantity;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public double getPrice() {
         return price;
     }
@@ -68,6 +67,6 @@ public class Product {
     @Override
     public String toString() {
         return "Products{" + "id=" + id + ", name=" + name + ", quantity=" + quantity +
-                ", description=" + description + ", price=" + price + ", categories=" + category + '}';
+                ", price=" + price + ", categories=" + category + '}';
     }
 }

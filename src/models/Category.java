@@ -1,13 +1,23 @@
 package models;
 
 public class Category {
+    private static int INDEX = 1;
     private int id;
     private String name;
 
-    public Category(int id, String name) {
-        this.id = id;
+    public Category(String name) {
+        this.id = INDEX++;
         this.name = name;
     }
+
+    public static int getINDEX() {
+        return INDEX;
+    }
+
+    public static void setINDEX(int INDEX) {
+        Category.INDEX = INDEX;
+    }
+
     public int getId() {
         return id;
     }
@@ -25,6 +35,6 @@ public class Category {
 
     @Override
     public String toString() {
-        return "Categories{" + "id=" + id + ", name=" + name + '}';
+        return "Category{" + "id=" + id + ", name=" + name + '}';
     }
 }

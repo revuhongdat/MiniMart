@@ -67,7 +67,7 @@ public class ExceptionManager {
         do {
             try {
                 choice = Integer.parseInt(sc.nextLine());
-                if (choice <= 0) {
+                if (choice < 0) {
                     choice = -1;
                     System.err.println("Choice must be greater than zero, please re-enter!!!");
                 }

@@ -1,12 +1,8 @@
 package services;
 import models.Category;
-
 import java.util.ArrayList;
 import java.util.Scanner;
-
-
 public class CategoriesManager {
-    private static int INDEX = 0;
     private final ArrayList<Category> categories;
     private final Scanner scanner;
     public CategoriesManager() {
@@ -17,19 +13,19 @@ public class CategoriesManager {
         return categories;
     }
     public void createCategory() {
-        System.out.print("Enter name of new Categories : ");
-        String nameNewCategories = scanner.nextLine();
-        Category newCategory = new Category(++INDEX, nameNewCategories);
+        System.out.print("Nhập tên cho ngành hàng mới: ");
+        String nameNewCategory = scanner.nextLine();
+        Category newCategory = new Category(nameNewCategory);
         categories.add(newCategory);
     }
     public void loadCategories(ArrayList<String[]> arrayList) {
         for (int i = 0; i < arrayList.size(); i++) {
             int id = Integer.parseInt(arrayList.get(i)[0]);
-            if (INDEX < id) {
-                INDEX = id;
+            if (Category.getINDEX() < id) {
+                Category.setINDEX(id);
             }
             String name = arrayList.get(i)[1];
-            Category newCategory = new Category(id, name);
+            Category newCategory = new Category(name);
             categories.add(newCategory);
         }
     }
@@ -51,14 +47,14 @@ public class CategoriesManager {
     }
 
     public void editCategory() {
-        System.out.print("Enter the id of category you want edit :");
+        System.out.print("Nhập id của nhãn hàng bạn muốn sửa:");
         int id = Integer.parseInt(scanner.nextLine());
         Category c = findCategoryById(id);
         if (c != null) {
-            System.out.println("Enter the new name of category :");
+            System.out.println("Nhập tên mới cho nhãn hàng:");
             String newName = scanner.nextLine();
             c.setName(newName);
-            System.out.println("Edit successfully!");
+            System.out.println("Đã sửa xong!");
         } else {
             System.err.println("Not found!");
         }

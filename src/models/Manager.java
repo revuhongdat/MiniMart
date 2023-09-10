@@ -1,0 +1,31 @@
+package models;
+
+public class Manager {
+    private String account;
+    private String password;
+
+    public Manager() {
+        this.account = "manager";
+        this.password = "manager";
+    }
+    public void signIn() {
+        System.out.println();
+    }
+
+    public String getAccount() {
+        return account;
+    }
+
+    public void setAccount(String account) {
+        this.account = account;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+}
