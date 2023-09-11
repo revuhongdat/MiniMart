@@ -138,7 +138,7 @@ public class Menu {
         int choice;
         do {
             System.out.println("___________________________________");
-            System.out.println("|MENU KHÁCH HÀNG:                  |");
+            System.out.println("|         MENU KHÁCH HÀNG          |");
             System.out.println("|1. Thêm sản phẩm vào giỏ hàng     |");
             System.out.println("|2. Xoá sản phẩm trong giỏ hàng    |");
             System.out.println("|3. Hiển thị giỏ hàng              |");
@@ -182,7 +182,7 @@ public class Menu {
                         choice2 = ExceptionManager.exceptionChoice();
                         switch (choice2) {
                             case 1:
-                                System.err.println("Chức năng ĐỔI MK chưa xong");
+                                System.err.println("Viết cho có thời gian đâu mà làm, nhà bao việc");
                                 break;
                             case 2:
                                 System.err.println("Chức năng ĐỔI TÊN chưa xong");
@@ -254,7 +254,7 @@ public class Menu {
         for (int i = 0; i < arrayList.size(); i++) {
             int idCustomer = Integer.parseInt(arrayList.get(i)[0]);
             if (Customer.getINDEX() < idCustomer) {
-                Customer.setINDEX(idCustomer);
+                Customer.setINDEX(idCustomer + 1);
             }
             String name = arrayList.get(i)[1];
             String account = arrayList.get(i)[2];

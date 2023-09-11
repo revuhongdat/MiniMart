@@ -38,13 +38,20 @@ public class Cart {
         scanner = new Scanner(System.in);
     }
     public void addProductToCart(ProductsManager productsManager) {
-        productsManager.displayProducts();
+        productsManager.displayProductsForCustomer();
         System.out.println("Nhập id của item bạn muốn mua:");
         int id = Integer.parseInt(scanner.nextLine());
         Product product = productsManager.findProductsById(id);
         if (product != null) {
-            System.out.println("Nhập số lượng item bạn muốn mua:");
-            int buyQuantity = ExceptionManager.exceptionPositiveInteger();
+            int buyQuantity = -1;
+            do {
+                System.out.println("Nhập số lượng item bạn muốn mua:");
+                buyQuantity = ExceptionManager.exceptionPositiveInteger();
+                if (buyQuantity > productsManager.findProductsById(id).getQuantity()) {
+                    buyQuantity = -1;
+                    System.err.println("Làm đéo có nhiều hàng thế mà mua, nhập lại đi!");
+                }
+            } while (buyQuantity == -1);
             boolean check = false;
             for (Item item : getItems()) {
                 if (item.getProduct().getId() == id) {

@@ -29,8 +29,6 @@ public class CategoriesManager {
             categories.add(newCategory);
         }
     }
-
-
     public void displayCategories() {
         for (Category c : categories) {
             System.out.println(c);

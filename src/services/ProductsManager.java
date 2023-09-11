@@ -17,10 +17,27 @@ public class ProductsManager {
     public ArrayList<Product> getProducts() {
         return products;
     }
-
+    public boolean isDuplicateName(String name) {
+        boolean check = false;
+        for (Product product : products) {
+            if (product.getName().equals(name)) {
+                check = true;
+                break;
+            }
+        }
+        return check;
+    }
     public void addProduct(CategoriesManager categoriesManager) {
-        System.out.println("Nhập tên của sản phẩm :");
-        String name = scanner.nextLine();
+        boolean check = false;
+        String name = "";
+        do {
+            System.out.println("Nhập tên của sản phẩm :");
+            name = scanner.nextLine();
+            check = isDuplicateName(name);
+            if (check) {
+                System.out.println("Tên sản phẩm đã có sẵn, nhập lại!");
+            }
+        } while (check);
         int quantity = ExceptionManager.exceptionQuantity();
         double price = ExceptionManager.exceptionPrice();
         // Check xem danh sách categories có trống ko, nếu trống thì tạo một categories cho product,
@@ -57,9 +74,19 @@ public class ProductsManager {
         }
     }
 
+    private void displayProductFormat(Product product) {
+        System.out.printf("ID = %-5s, Tên = %-10s, Số lượng = %-5d, Giá = %-10.0f, Nhãn hàng = %-10s%n",product.getId(),product.getName(),product.getQuantity(),product.getPrice(),product.getCategories().getName());
+    }
     public void displayProducts(){
         for (Product product : products) {
-            System.out.println(product);
+            displayProductFormat(product);
+        }
+    }
+    public void displayProductsForCustomer() {
+        for (Product product : products) {
+            if (product.getQuantity() > 0) {
+                displayProductFormat(product);
+            }
         }
     }
 
