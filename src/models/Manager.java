@@ -27,5 +27,4 @@ public class Manager {
     public void setPassword(String password) {
         this.password = password;
     }
-
 }

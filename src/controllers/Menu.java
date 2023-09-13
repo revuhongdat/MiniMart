@@ -3,6 +3,7 @@ package controllers;
 import models.Cart;
 import models.Customer;
 import models.Item;
+import models.Manager;
 import services.*;
 
 import java.text.ParseException;
@@ -17,7 +18,6 @@ public class Menu {
         CustomerManager customerManager = new CustomerManager();
         CategoriesManager categoriesManager = new CategoriesManager();
         ProductsManager productsManager = new ProductsManager();
-
         FileManager fileManager = new FileManager();
         categoriesManager.loadCategories(fileManager.importData("src/dataCategories.txt"));
         productsManager.loadProduct(fileManager.importData("src/dataProducts.txt"), categoriesManager);
@@ -29,6 +29,7 @@ public class Menu {
         ArrayList<Customer> customers1 = Menu.loadCustomers1(arrayListCustomers);
         ArrayList<Customer> customers2 = Menu.loadCustomers2(arrayListCustomers, customers1, carts2);
         customerManager.setCustomers(customers2);
+        Manager manager = new Manager();
         do {
             System.out.println("MENU:");
             System.out.println("1. Quản lý");
@@ -41,7 +42,18 @@ public class Menu {
             int choice = ExceptionManager.exceptionChoice();
             switch (choice) {
                 case 1:
-                    menuManager(categoriesManager, productsManager, scanner);
+                    do {
+                        System.out.println("Nhập tài khoản:");
+                        String account = scanner.nextLine();
+                        System.out.println("Nhập mật khẩu:");
+                        String password = scanner.nextLine();
+                        if (manager.getAccount().equals(account) && manager.getPassword().equals(password)) {
+                            break;
+                        } else {
+                            System.err.println("Tài khoản hoặc mật khẩu không đúng. Vui lòng nhập lại!");
+                        }
+                    } while (true);
+                    menuManager(categoriesManager, productsManager, scanner, manager);
                     break;
                 case 2:
                     menuSignInRegister(customerManager, productsManager, fileManager, categoriesManager);
@@ -68,18 +80,22 @@ public class Menu {
         } while (true);
     }
 
-    private void menuManager(CategoriesManager categoriesManager, ProductsManager productsManager, Scanner scanner) {
+    private void menuManager(CategoriesManager categoriesManager, ProductsManager productsManager, Scanner scanner, Manager manager) {
         int choice;
         do {
-            System.out.println("MENU QUẢN LÝ:");
-            System.out.println("1. Tạo danh mục sản phẩm");
-            System.out.println("2. Sửa danh mục sản phẩm");
-            System.out.println("3. Hiện danh mục sản phẩm");
-            System.out.println("4. Thêm sản phẩm mới");
-            System.out.println("5. Sửa sản phẩm");
-            System.out.println("6. Xoá sản phẩm");
-            System.out.println("7. Hiện sản phẩm");
-            System.out.println("0. Quay lại");
+            System.out.println("┌———————————————————————————————————┐");
+            System.out.println("⎟           MENU QUẢN LÝ            ⎟");
+            System.out.println("⎟———————————————————————————————————⎟");
+            System.out.println("⎟1. Tạo danh mục sản phẩm           ⎟");
+            System.out.println("⎟2. Sửa danh mục sản phẩm           ⎟");
+            System.out.println("⎟3. Hiện danh mục sản phẩm          ⎟");
+            System.out.println("⎟4. Thêm sản phẩm mới               ⎟");
+            System.out.println("⎟5. Sửa sản phẩm                    ⎟");
+            System.out.println("⎟6. Xoá sản phẩm                    ⎟");
+            System.out.println("⎟7. Hiện sản phẩm                   ⎟");
+            System.out.println("⎟8. Tài khoản                       ⎟");
+            System.out.println("⎟0. Quay lại                        ⎟");
+            System.out.println("└———————————————————————————————————┘");
             System.out.println("Nhập lựa chọn :");
             choice = ExceptionManager.exceptionChoice();
             switch (choice) {
@@ -104,19 +120,32 @@ public class Menu {
                 case 7:
                     productsManager.displayProducts();
                     break;
-            }
+                case 8:
+                    System.out.print("Tài khoản : " + manager.getAccount() + "|" + "Mật khẩu : " + manager.getAccount());
+                    System.out.println();
+                    System.out.println("┌———————————————————————————————————┐");
+                    System.out.println("⎟1. Đổi tài khoản                   ⎟");
+                    System.out.println("⎟2. Đổi mật khẩu                    ⎟");
+                    System.out.println("└———————————————————————————————————┘");
 
+                    break;
+            }
         } while (choice != 0);
     }
-    private void menuSignInRegister(CustomerManager customerManager,
+    public void menuSignInRegister(CustomerManager customerManager,
                                     ProductsManager productsManager,
                                     FileManager fileManager,
                                     CategoriesManager categoriesManager) {
         int choice1;
         do {
-            System.out.println("1.Đăng ký");
-            System.out.println("2.Đăng nhập");
-            System.out.println("0.Quay lại");
+            System.out.println("┌———————————————————————————————————┐");
+            System.out.println("⎟          MENU KHÁCH HÀNG          ⎟");
+            System.out.println("⎟———————————————————————————————————⎟");
+            System.out.println("⎟1.Đăng ký                          ⎟");
+            System.out.println("⎟2.Đăng nhập                        ⎟");
+            System.out.println("⎟0. Quay lại                        ⎟");
+            System.out.println("└———————————————————————————————————┘");
+            System.out.println("Nhập lựa chọn :");
             choice1 = ExceptionManager.exceptionChoice();
             switch (choice1) {
                 case 1:
@@ -137,16 +166,18 @@ public class Menu {
                          CategoriesManager categoriesManager) {
         int choice;
         do {
-            System.out.println("___________________________________");
-            System.out.println("|         MENU KHÁCH HÀNG          |");
-            System.out.println("|1. Thêm sản phẩm vào giỏ hàng     |");
-            System.out.println("|2. Xoá sản phẩm trong giỏ hàng    |");
-            System.out.println("|3. Hiển thị giỏ hàng              |");
-            System.out.println("|4. Thanh toán                     |");
-            System.out.println("|5. Lịch sử mua hàng               |");
-            System.out.println("|6. Tài khoản                      |");
-            System.out.println("|0. Đăng xuất                      |");
-            System.out.println("|__________________________________|");
+            System.out.println("┌———————————————————————————————————┐");
+            System.out.println("⎟         MENU KHÁCH HÀNG           ⎟");
+            System.out.println("⎟———————————————————————————————————⎟");
+            System.out.println("⎟1. Thêm sản phẩm vào giỏ hàng      ⎟");
+            System.out.println("⎟2. Xoá sản phẩm trong giỏ hàng     ⎟");
+            System.out.println("⎟3. Hiển thị giỏ hàng               ⎟");
+            System.out.println("⎟4. Thanh toán                      ⎟");
+            System.out.println("⎟5. Lịch sử mua hàng                ⎟");
+            System.out.println("⎟6. Tài khoản                       ⎟");
+            System.out.println("⎟0. Đăng xuất                       ⎟");
+            System.out.println("└———————————————————————————————————┘");
+            System.out.println("Nhập lựa chọn :");
             choice = ExceptionManager.exceptionChoice();
             switch (choice) {
                 case 1:
@@ -172,13 +203,17 @@ public class Menu {
                     int choice2;
                     do {
                         System.out.println(customer);
+
                         System.out.println("Tài khoản:");
                         System.out.println(customer.getAccount());
                         System.out.println("Mật khẩu:");
                         System.out.println(customer.getPassword());
-                        System.out.println("1.Đổi mật khẩu");
-                        System.out.println("2.Đổi tên");
-                        System.out.println("0.Quay lại");
+                        System.out.println("┌———————————————————————————————————┐");
+                        System.out.println("⎟1.Đổi mật khẩu                     ⎟");
+                        System.out.println("⎟2.Đổi tên                          ⎟");
+                        System.out.println("⎟0. Quay lại                        ⎟");
+                        System.out.println("└———————————————————————————————————┘");
+                        System.out.println("Nhập lựa chọn :");
                         choice2 = ExceptionManager.exceptionChoice();
                         switch (choice2) {
                             case 1:

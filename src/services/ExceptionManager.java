@@ -8,15 +8,15 @@ public class ExceptionManager {
     public static int exceptionQuantity() {
         int quantity = -1;
         do {
-            System.out.println("Enter the quantity of product:");
+            System.out.println("Nhập số lượng sản phẩm");
             try {
                 quantity = Integer.parseInt(sc.nextLine());
                 if (quantity <= 0) {
                     quantity = -1;
-                    System.out.println("Quantity of the product must be greater than zero, please re-enter!!!");
+                    System.out.println("Số lượng phải lớn hơn 0!");
                 }
             } catch (NumberFormatException e) {
-                System.err.println("Enter numbers only, please re-enter!!!");
+                System.err.println("Chỉ được nhập số nguyên!");
             }
 
         } while (quantity == -1);
@@ -25,27 +25,19 @@ public class ExceptionManager {
     public static double exceptionPrice() {
         double price = -1.0;
         do {
-            System.out.println("Enter the price of product: ");
+            System.out.println("Nhập giá sản phẩm: ");
             try {
                 price = Double.parseDouble(sc.nextLine());
                 if (price <= 0) {
                     price = -1;
-                    System.err.println("Price of the product must be greater than zero, please re-enter!!!");
+                    System.err.println("Giá phải lớn hơn 0!");
                 }
             } catch (NumberFormatException e) {
-                System.err.println("Enter numbers only, please re-enter!!!");
+                System.err.println("Chỉ được nhập số!");
             }
 
         } while (price == -1);
         return price;
-    }
-    public static String exceptionDescription() {
-        String description;
-        do {
-            System.out.println("Enter a description for the product (character length from 1 - 30) :");
-            description = sc.nextLine();
-        } while (description.isEmpty() || description.length() > 30);
-        return description;
     }
     public static int exceptionPositiveInteger() {
         int number = -1;
@@ -54,10 +46,10 @@ public class ExceptionManager {
                 number = Integer.parseInt(sc.nextLine());
                 if (number <= 0) {
                     number = -1;
-                    System.err.println("Id of the product must be greater than zero, please re-enter!!!");
+                    System.err.println("Nhập số nhỏ hơn 0!");
                 }
             } catch (NumberFormatException e) {
-                System.err.println("Enter the wrong format, re-enter!!!");
+                System.err.println("Nhập sai định dạng!");
             }
         } while (number == -1);
         return number;
@@ -69,10 +61,10 @@ public class ExceptionManager {
                 choice = Integer.parseInt(sc.nextLine());
                 if (choice < 0) {
                     choice = -1;
-                    System.err.println("Choice must be greater than zero, please re-enter!!!");
+                    System.err.println("Nhập số lớn hơn 0 mới được!");
                 }
             } catch (NumberFormatException e) {
-                System.err.println("Enter the wrong format, re-enter!!!");
+                System.err.println("Nhập sai định dạng!");
             }
         } while (choice == -1);
         return choice;
