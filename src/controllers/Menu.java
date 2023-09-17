@@ -31,13 +31,13 @@ public class Menu {
         customerManager.setCustomers(customers2);
         Manager manager = new Manager();
         do {
-            System.out.println("MENU:");
-            System.out.println("1. Quản lý");
-            System.out.println("2. Khách hàng");
-            System.out.println("3. Hiện danh sách Item");
-            System.out.println("4. Hiện danh sách Cart");
-            System.out.println("5. Hiện danh sách Customer");
-            System.out.println("0. Thoát");
+            System.out.println("┌———————————————————————————————————┐");
+            System.out.println("⎟                MENU               ⎟");
+            System.out.println("⎟———————————————————————————————————⎟");
+            System.out.println("⎟1. Quản lý                         ⎟");
+            System.out.println("⎟2. Khách hàng                      ⎟");
+            System.out.println("⎟0. Thoát                           ⎟");
+            System.out.println("└———————————————————————————————————┘");
             System.out.println("Nhập lựa chọn: ");
             int choice = ExceptionManager.exceptionChoice();
             switch (choice) {
@@ -57,21 +57,6 @@ public class Menu {
                     break;
                 case 2:
                     menuSignInRegister(customerManager, productsManager, fileManager, categoriesManager);
-                    break;
-                case 3:
-                    for (Item item : listItems) {
-                        System.out.println(item);
-                    }
-                    break;
-                case 4:
-                    for (Cart cart : carts2) {
-                        System.out.println(cart);
-                    }
-                    break;
-                case 5:
-                    for (Customer customer : customerManager.getCustomers()) {
-                        System.out.println(customer);
-                    }
                     break;
                 case 0:
                     fileManager.exportData(productsManager.getProducts(), categoriesManager.getCategories());
@@ -103,6 +88,7 @@ public class Menu {
                     categoriesManager.createCategory();
                     break;
                 case 2:
+                    categoriesManager.displayCategories();
                     categoriesManager.editCategory();
                     break;
                 case 3:
@@ -121,13 +107,7 @@ public class Menu {
                     productsManager.displayProducts();
                     break;
                 case 8:
-                    System.out.print("Tài khoản : " + manager.getAccount() + "|" + "Mật khẩu : " + manager.getAccount());
-                    System.out.println();
-                    System.out.println("┌———————————————————————————————————┐");
-                    System.out.println("⎟1. Đổi tài khoản                   ⎟");
-                    System.out.println("⎟2. Đổi mật khẩu                    ⎟");
-                    System.out.println("└———————————————————————————————————┘");
-
+                    manager.editManager();
                     break;
             }
         } while (choice != 0);
@@ -203,11 +183,7 @@ public class Menu {
                     int choice2;
                     do {
                         System.out.println(customer);
-
-                        System.out.println("Tài khoản:");
-                        System.out.println(customer.getAccount());
-                        System.out.println("Mật khẩu:");
-                        System.out.println(customer.getPassword());
+                        System.out.println("Tài khoản : " + customer.getAccount() + "|" + "Mật khẩu : " + customer.getPassword());
                         System.out.println("┌———————————————————————————————————┐");
                         System.out.println("⎟1.Đổi mật khẩu                     ⎟");
                         System.out.println("⎟2.Đổi tên                          ⎟");
@@ -217,10 +193,10 @@ public class Menu {
                         choice2 = ExceptionManager.exceptionChoice();
                         switch (choice2) {
                             case 1:
-                                System.err.println("Viết cho có thời gian đâu mà làm, nhà bao việc");
+                                System.err.println("Tương tự manager");
                                 break;
                             case 2:
-                                System.err.println("Chức năng ĐỔI TÊN chưa xong");
+                                System.err.println("Tương tự manager");
                                 break;
                         }
                     } while (choice2 != 0);
